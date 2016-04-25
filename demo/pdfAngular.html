@@ -1,23 +1,22 @@
 <html ng-app="app">
 
-<body>
-
-<button pdf-save-button="idOne" pdf-name="someone.pdf" class="btn">{{buttonText}}</button>
+<body ng-controller="DemoController">
+<button pdf-save-button="idOne" pdf-name="someone.pdf" class="btn">Hello Someone</button>
 	<!-- below block will be saved as pdf -->
 
 
 
-	<div pdf-save="idOne" >
+	<div pdf-save-content="idOne" >
 		<!-- some google graph --> 
 		Hello Someone
 	</div>
 
-	<button pdf-save-button="idOneGraph" pdf-name="hello.pdf" class="btn">{{buttonText}}</button>
+	<button pdf-save-button="idOneGraph" pdf-name="hello.pdf" class="btn">Hello World</button>
 	<!-- below block will be saved as pdf -->
 
 
 
-	<div pdf-save="idOneGraph" >
+	<div pdf-save-content="idOneGraph" >
 		<!-- some google graph --> 
 		Hello World
 	</div>
@@ -31,6 +30,9 @@
 </script>
 <script>
 var app = angular.module('app' , ['htmlToPdfSave']) ;
+app.controller('DemoController' , function($scope) {
+
+});
 </script>
 </body>
 </html>

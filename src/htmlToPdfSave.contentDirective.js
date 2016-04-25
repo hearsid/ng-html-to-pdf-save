@@ -1,4 +1,3 @@
-(function(angular , window) {
 
 angular.module('htmlToPdfSave') 
 .directive('pdfSaveContent' , function($rootScope , $pdfStorage) { 
@@ -12,7 +11,7 @@ angular.module('htmlToPdfSave')
 					var myListener = scope.$on('savePdfEvent' , function(event , args) {
 
 					var currentElement = element ;
-						var currentElementId = currentElement[0].getAttribute('pdf-save') ;
+						var currentElementId = currentElement[0].getAttribute('pdf-save-content') ;
 
 					// save a call of query selector because angular loads the element on load by default
 					//	var elem = document.querySelectorAll('[pdf-save]') ;
@@ -37,7 +36,7 @@ angular.module('htmlToPdfSave')
 						var single = elem[i] ;
 						var singleElement = single[0];
 						//var parent = single[0] ;
-						var pdfId = singleElement.getAttribute('pdf-save') ;
+						var pdfId = singleElement.getAttribute('pdf-save-content') ;
 
 						if(matchTheIds(pdfId , broadcastedId)) {
 							console.log('Id is same');
@@ -60,7 +59,7 @@ angular.module('htmlToPdfSave')
 
 					function convert(theElement , id) {
 
-						var element = $('[pdf-save='+id+']') ,
+						var element = $('[pdf-save-content='+id+']') ,
 						cache_width = element.width(),
 						 a4  =[ 595.28,  841.89];  // for a4 size paper width and height
 						 
@@ -111,4 +110,3 @@ angular.module('htmlToPdfSave')
 
 
 
-})(window.angular , window) ;

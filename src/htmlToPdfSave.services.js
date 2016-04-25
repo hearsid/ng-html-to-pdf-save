@@ -1,4 +1,3 @@
-(function(angular , window) {
 
 angular.module('htmlToPdfSave') 
 .service('$pdfStorage' , function() {
@@ -9,4 +8,3 @@ angular.module('htmlToPdfSave')
 	this.pdfName = "default.pdf";
 })
 
-}) ;

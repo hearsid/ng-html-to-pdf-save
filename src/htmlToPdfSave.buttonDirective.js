@@ -1,4 +1,3 @@
-(function(angular , window) {
 
 angular.module('htmlToPdfSave')
 .directive('pdfSaveButton' , function($rootScope , $pdfStorage) {
@@ -22,4 +21,3 @@ angular.module('htmlToPdfSave')
 
 }) ;
 
-});

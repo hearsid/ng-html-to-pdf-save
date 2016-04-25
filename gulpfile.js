@@ -27,7 +27,7 @@ gulp.task('compress', function (cb) {
 
 gulp.task('concat', function() {
   return gulp.src('src/*.js')
-    .pipe(sourcemaps.init())
+   // .pipe(sourcemaps.init())
       .pipe(concat(fileName+'.js'))
     .pipe(sourcemaps.write())
     .pipe(gulp.dest('dist'));
