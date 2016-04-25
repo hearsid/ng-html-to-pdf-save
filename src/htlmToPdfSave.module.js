@@ -4,4 +4,4 @@ angular.module('htmlToPdfSave' , []) ;
 
 
 
-)(window.angular , window) ;
+})(window.angular , window) ;

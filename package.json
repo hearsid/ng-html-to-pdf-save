@@ -16,5 +16,8 @@
     "angular"
   ],
   "author": "hearsid",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "gulp-sourcemaps": "^1.6.0"
+  }
 }
