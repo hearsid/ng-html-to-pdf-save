@@ -6,7 +6,7 @@ angular.module('htmlToPdfSave' , []) ;
 
 
 angular.module('htmlToPdfSave')
-.directive('pdfSaveButton' , function($rootScope , $pdfStorage) {
+.directive('pdfSaveButton' , ['$rootScope' , '$pdfStorage' , function($rootScope , $pdfStorage) {
 	
 	return {
 		restrict: 'A',
@@ -25,12 +25,12 @@ angular.module('htmlToPdfSave')
 
 	}
 
-}) ;
+}]) ;
 
 
 
 angular.module('htmlToPdfSave') 
-.directive('pdfSaveContent' , function($rootScope , $pdfStorage) { 
+.directive('pdfSaveContent' ,  [ '$rootScope' , '$pdfStorage' , function ($rootScope , $pdfStorage) { 
 
 
 			return {
@@ -136,7 +136,7 @@ angular.module('htmlToPdfSave')
 
 }
 
-}) ;
+}]) ;
 
 
 

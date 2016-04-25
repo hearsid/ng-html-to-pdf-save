@@ -1,6 +1,6 @@
 
 angular.module('htmlToPdfSave') 
-.directive('pdfSaveContent' , function($rootScope , $pdfStorage) { 
+.directive('pdfSaveContent' ,  [ '$rootScope' , '$pdfStorage' , function ($rootScope , $pdfStorage) { 
 
 
 			return {
@@ -106,7 +106,7 @@ angular.module('htmlToPdfSave')
 
 }
 
-}) ;
+}]) ;
 
 
 

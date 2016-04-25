@@ -1,6 +1,6 @@
 
 angular.module('htmlToPdfSave')
-.directive('pdfSaveButton' , function($rootScope , $pdfStorage) {
+.directive('pdfSaveButton' , ['$rootScope' , '$pdfStorage' , function($rootScope , $pdfStorage) {
 	
 	return {
 		restrict: 'A',
@@ -19,5 +19,5 @@ angular.module('htmlToPdfSave')
 
 	}
 
-}) ;
+}]) ;
 
