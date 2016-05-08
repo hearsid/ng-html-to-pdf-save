@@ -4,9 +4,8 @@ This is an angularjs module to save HTML as PDF , it basically converts the HTML
 Here are the steps :
 <br/>
 1) bower install angular-save-html-to-pdf
-<center>OR</center>
-
- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  npm install angular-save-html-to-pdf
+<br/>OR<br/>
+npm install angular-save-html-to-pdf
 
  2) Link the JS files in your HTML file :
 
