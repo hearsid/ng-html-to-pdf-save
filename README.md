@@ -1,5 +1,7 @@
 ## Angularjs save HTML as PDF in your browser
-This is an angularjs module to save HTML as PDF <a target="_blank" href="http://hearsid.github.io/pdfSave/demo/pdfAngular.html">DEMO</a>, it basically converts the HTML to HTML5 canvas and captures the same and converts it to PDF and saves it in your browser .
+
+This is an angularjs module to save HTML as PDF <a target="_blank" href="http://hearsid.github.io/ng-html-to-pdf-save/demo/pdfAngular.html">DEMO</a>, it basically converts the HTML to HTML5 canvas and captures the same and converts it to PDF and saves it in your browser .
+
 <br/>
 Here are the steps :
 <br/>

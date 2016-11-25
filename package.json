@@ -1,6 +1,6 @@
 {
   "name": "angular-save-html-to-pdf",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Save HTML in pdf format totally by using frontend in angularjs . Basically this respository is a combination of some angular directives which are using other libraries to convert html to html5canvas and save that html5canvas as pdf . Everything happens in the frontend so there is no need of adding anything in your backend .",
   "main": "index.js",
   "scripts": {
