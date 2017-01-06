@@ -1,6 +1,6 @@
 
-angular.module('htmlToPdfSave') 
-.directive('pdfSaveContent' ,  [ '$rootScope' , '$pdfStorage' , function ($rootScope , $pdfStorage) { 
+angular.module('htmlToPdfSave')
+.directive('pdfSaveContent' ,  [ '$rootScope' , '$pdfStorage' , function ($rootScope , $pdfStorage) {
 
 
 			return {
@@ -17,18 +17,19 @@ angular.module('htmlToPdfSave')
 					//	var elem = document.querySelectorAll('[pdf-save]') ;
 						var elem = $pdfStorage.pdfSaveContents ;
 						var broadcastedId = args.activePdfSaveId ;
+						var broadcastedName = args.activePdfSaveName || 'default.pdf';
 
 
 
-					//iterate through the element array to match the id 
+					//iterate through the element array to match the id
 					for(var i = 0;i < elem.length ; i++) {
 
-						// handle the case of elem getting length 
+						// handle the case of elem getting length
 					//	if(i == 'length' || i == 'item')
 					//		continue ;
 
 						// if the event is received by other element than for whom it what propogated for continue
-						
+
 
 						if(!matchTheIds(broadcastedId , currentElementId))
 							continue ;
@@ -62,22 +63,22 @@ angular.module('htmlToPdfSave')
 						var element = $('[pdf-save-content='+id+']') ,
 						cache_width = element.width(),
 						 a4  =[ 595.28,  841.89];  // for a4 size paper width and height
-						 
+
 
 						 $('body').scrollTop(0);
 						 createPDF();
 
 						//create pdf
 						function createPDF(){
-							getCanvas().then(function(canvas){ 
+							getCanvas().then(function(canvas){
 								console.log('resolved get canvas');
 								var img = canvas.toDataURL("image/png"),
 								doc = new jsPDF({
-									unit:'px', 
+									unit:'px',
 									format:'a4'
-								});     
+								});
 								doc.addImage(img, 'JPEG', 20, 20);
-								doc.save('chart-reports.pdf');
+								doc.save(broadcastedName);
 								element.width(cache_width);
 
 							})
@@ -89,7 +90,7 @@ angular.module('htmlToPdfSave')
 							return html2canvas(element,{
 								imageTimeout:2000,
 								removeContainer:true
-							}); 
+							});
 						}
 
 
@@ -100,13 +101,10 @@ angular.module('htmlToPdfSave')
 			}) ;
 			// handle the memory leak
 			// unbind the event
-			scope.$on('$destroy', myListener); 
+			scope.$on('$destroy', myListener);
 
 }
 
 }
 
 }]) ;
-
-
-
