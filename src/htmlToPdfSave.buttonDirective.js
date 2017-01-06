@@ -1,7 +1,7 @@
 
 angular.module('htmlToPdfSave')
 .directive('pdfSaveButton' , ['$rootScope' , '$pdfStorage' , function($rootScope , $pdfStorage) {
-	
+
 	return {
 		restrict: 'A',
 		link : function(scope , element , attrs ) {
@@ -10,9 +10,10 @@ angular.module('htmlToPdfSave')
 			scope.buttonText = "Button";
 			element.on('click' , function() {
 				var activePdfSaveId = attrs.pdfSaveButton ;
-				$rootScope.$broadcast('savePdfEvent' , {activePdfSaveId : activePdfSaveId}) ;
+				var activePdfSaveName = attrs.pdfName;
+				$rootScope.$broadcast('savePdfEvent' , {activePdfSaveId : activePdfSaveId, activePdfSaveName: activePdfSaveName}) ;
 
-			 
+
 			})
 		}
 
@@ -20,4 +21,3 @@ angular.module('htmlToPdfSave')
 	}
 
 }]) ;
-
