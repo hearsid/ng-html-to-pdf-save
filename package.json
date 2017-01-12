@@ -18,6 +18,15 @@
   "author": "hearsid",
   "license": "ISC",
   "dependencies": {
-    "gulp-sourcemaps": "^1.6.0"
+  },
+  "devDependencies": {
+    "gulp" : "*",
+    "gulp-sourcemaps": "^1.6.0",
+   "gulp-concat": "*",
+   "gulp-minify": "*",
+   "gulp-uglify": "*",
+   "pump": "*",
+   "gulp-rename": "*"
+
   }
 }

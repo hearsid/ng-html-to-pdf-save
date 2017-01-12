@@ -2,7 +2,7 @@ language: node_js
 node_js:
   - "6"
 before_script:
-  - npm install  gulp
+  - npm install  
 script:
   - gulp concat
   - gulp compress
