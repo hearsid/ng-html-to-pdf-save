@@ -59,8 +59,7 @@ angular.module('htmlToPdfSave')
 
 
 					function convert(theElement , id) {
-						var quotes = $('[pdf-save-content='+id+']');
-
+						var quotes = $('div[pdf-save-content='+id+']')[0];
 				        html2canvas(quotes, {
 				            onrendered: function(canvas) {
 				            var pdf = new jsPDF('p', 'pt', 'letter');
