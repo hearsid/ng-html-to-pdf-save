@@ -44,4 +44,18 @@ npm install angular-save-html-to-pdf
 
   To allow addition of multiple pdf save button and linking them to the pdf save content block every pdf-save-button and pdf-save-content directive is associated with an ID , the pdf-save-button will match the ID with pdf-save-content block and the matching HTML block will be saved .
   <br/>
+  <br/>
+
+  ### Developer instructions:
+  If you would like to run the project locally, you can download the repo and run :<br/>
+  1)
+  ```
+    > gulp concat
+    > gulp compress
+    ```
+  commands to create the bundled file which is then used in the demo/index.html file.
+
+  2)  demo/index.html file can be served easily by any static web server to test the project, I use and thus recommend python server which you can start by writing
+     ``` python -m SimpleHTTPServer 9090 ```
+     9090 can be replaced by your prefered port. <br/>
   NOTE : This is a new repository and has been tested with basic HTML and google graphs , please create github issues if you find it is not working with something and consider contributing. Cheers .
