@@ -1,7 +1,7 @@
 {
   "name": "angular-save-html-to-pdf",
   "description": "Save HTML in pdf format by angularjs . Directives which are using libraries to convert html to html5canvas and save html5canvas as pdf .",
-  "main": "index.js",
+  "main": "dist/saveHtmlToPdf.js",
   "authors": [
     "hearsid"
   ],
