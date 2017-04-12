@@ -78,6 +78,8 @@ angular.module('htmlToPdfSave')
 				                onePageCanvas.setAttribute('width', 900);
 				                onePageCanvas.setAttribute('height', 980);
 				                var ctx = onePageCanvas.getContext('2d');
+                                ctx.fillStyle = "#FFFFFF";
+                                ctx.fillRect(0, 0, sWidth, sHeight);
 				                // details on this usage of this function: 
 				                // https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Using_images#Slicing
 				                ctx.drawImage(srcImg,sX,sY,sWidth,sHeight,dX,dY,dWidth,dHeight);
