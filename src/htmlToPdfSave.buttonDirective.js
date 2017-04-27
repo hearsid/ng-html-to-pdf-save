@@ -11,8 +11,7 @@ angular.module('htmlToPdfSave')
 			element.on('click' , function() {
 				var activePdfSaveId = attrs.pdfSaveButton ;
 				var activePdfSaveName = attrs.pdfName;
-				var numberOfPages = attrs.pdfNumberOfPages || 1;
-				$rootScope.$broadcast('savePdfEvent' , {activePdfSaveId : activePdfSaveId, activePdfSaveName: activePdfSaveName, numberOfPages: numberOfPages}) ;
+				$rootScope.$broadcast('savePdfEvent' , {activePdfSaveId : activePdfSaveId, activePdfSaveName: activePdfSaveName}) ;
 
 
 			})

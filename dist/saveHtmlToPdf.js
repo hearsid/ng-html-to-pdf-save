@@ -17,8 +17,7 @@ angular.module('htmlToPdfSave')
 			element.on('click' , function() {
 				var activePdfSaveId = attrs.pdfSaveButton ;
 				var activePdfSaveName = attrs.pdfName;
-				var numberOfPages = attrs.pdfNumberOfPages || 1;
-				$rootScope.$broadcast('savePdfEvent' , {activePdfSaveId : activePdfSaveId, activePdfSaveName: activePdfSaveName, numberOfPages: numberOfPages}) ;
+				$rootScope.$broadcast('savePdfEvent' , {activePdfSaveId : activePdfSaveId, activePdfSaveName: activePdfSaveName}) ;
 
 
 			})
@@ -49,8 +48,7 @@ angular.module('htmlToPdfSave')
 						var elem = $pdfStorage.pdfSaveContents ;
 						var broadcastedId = args.activePdfSaveId ;
 						var broadcastedName = args.activePdfSaveName || 'default.pdf';
-						var numberOfPages = args.numberOfPages;
-
+						var addPagesFns = [];
 
 					//iterate through the element array to match the id
 					for(var i = 0;i < elem.length ; i++) {
@@ -88,18 +86,9 @@ angular.module('htmlToPdfSave')
 
 					}
 
-
-					function convert(theElement , id) {
-						var quotes = $('div[pdf-save-content='+id+']')[0];
-						var pdf = new jsPDF('p', 'pt', 'letter');
-						for (var pageNumber = 0; pageNumber < numberOfPages; pageNumber++) {
-							(function (k) {
-								var quote = numberOfPages > 1 ? $('div[pdf-save-content='+id+'] [pdf-page='+(k + 1)+']')[0] : quotes;
-								if (k > 0) {
-									pdf.addPage(612, 791);
-									pdf.setPage(k+1);
-								}
-
+					function convertPage(id, k, pdf) {
+						var numberOfPages = $('div[pdf-save-content='+id+'] [pdf-page]').length || 1;
+						var quote = numberOfPages > 1 ? $('div[pdf-save-content='+id+'] [pdf-page='+(k + 1)+']')[0] : $('div[pdf-save-content='+id+']')[0];
 								html2canvas(quote, {
 					            onrendered: function(canvas) {
 					            for (var i = 0; i <= quote.clientHeight/980; i++) {
@@ -133,20 +122,32 @@ angular.module('htmlToPdfSave')
 					                    pdf.addPage(612, 791); //8.5" x 11" in pts (in*72)
 					                }
 					                //! now we declare that we're working on that page
-					                pdf.setPage(k + (i+1));
+					                // pdf.setPage(k + (i+1));
 					                //! now we add content to that page!
 					                pdf.addImage(canvasDataURL, 'PNG', 20, 40, (width*.62), (height*.62));
-
-					                if (k === numberOfPages - 1) {
-					                	pdf.save(broadcastedName);
-					                	//! after the for loop is finished running, we save the pdf.
-								            
-					                }
 					            }
+
+					            if (k === addPagesFns.length - 1) {
+			                	pdf.save(broadcastedName);
+			                } else {
+			                	pdf.addPage(612, 791);
+			                	addPagesFns[k + 1]();
+			                }
 					        }
 					      });
-							})(pageNumber);
+					}
+
+
+					function convert(theElement , id) {
+						var quotes = $('div[pdf-save-content='+id+']')[0];
+						var pdf = new jsPDF('p', 'pt', 'letter');
+						var numberOfPages = $('div[pdf-save-content='+id+'] [pdf-page]').length || 1;
+
+						for (var pageNumber = 0; pageNumber < numberOfPages; pageNumber++) {
+							addPagesFns.push(convertPage.bind(this, id, pageNumber, pdf));
 						}
+
+						addPagesFns[0]();
 						/*var element = $('[pdf-save-content='+id+']') ,
 						cache_width = element.width(),
 						 a4  =[ 595.28,  841.89];  // for a4 size paper width and height
