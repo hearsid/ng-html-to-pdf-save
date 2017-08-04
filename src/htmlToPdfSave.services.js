@@ -1,10 +1,10 @@
 
-angular.module('htmlToPdfSave') 
+angular.module('htmlToPdfSave')
 .service('$pdfStorage' , function() {
-	this.pdfSaveButtons = [] ;
-	this.pdfSaveContents = [] ;
+  this.pdfSaveButtons = [] ;
+  this.pdfSaveContents = [] ;
 })
-.service('pdfSaveConfig' , function() {
-	this.pdfName = "default.pdf";
+.service('$pdfSaveConfig' , function() {
+  this.pdfName = "default.pdf";
+  this.proxyUrl = '';
 })
-
