@@ -40,7 +40,6 @@ angular.module('htmlToPdfSave')
 						var pdfId = singleElement.getAttribute('pdf-save-content') ;
 
 						if(matchTheIds(pdfId , broadcastedId)) {
-							console.log('Id is same');
 							convertToPdf(elem , pdfId);
 							break ; // exit the loop once pdf gets printed
 						}
