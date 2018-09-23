@@ -48,8 +48,7 @@ angular.module('htmlToPdfSave')
 						var elem = $pdfStorage.pdfSaveContents ;
 						var broadcastedId = args.activePdfSaveId ;
 						var broadcastedName = args.activePdfSaveName || 'default.pdf';
-
-
+						var addPagesFns = [];
 
 					//iterate through the element array to match the id
 					for(var i = 0;i < elem.length ; i++) {
@@ -87,52 +86,68 @@ angular.module('htmlToPdfSave')
 
 					}
 
+					function convertPage(id, k, pdf) {
+						var numberOfPages = $('div[pdf-save-content='+id+'] [pdf-page]').length || 1;
+						var quote = numberOfPages > 1 ? $('div[pdf-save-content='+id+'] [pdf-page='+(k + 1)+']')[0] : $('div[pdf-save-content='+id+']')[0];
+								html2canvas(quote, {
+					            onrendered: function(canvas) {
+					            for (var i = 0; i <= quote.clientHeight/980; i++) {
+					                var srcImg  = canvas;
+					                var sX      = 0;
+					                var sY      = 980*i; // start 980 pixels down for every new page
+					                var sWidth  = 900;
+					                var sHeight = 980;
+					                var dX      = 0;
+					                var dY      = 0;
+					                var dWidth  = 900;
+					                var dHeight = 980;
+
+					                window.onePageCanvas = document.createElement("canvas");
+					                onePageCanvas.setAttribute('width', 900);
+					                onePageCanvas.setAttribute('height', 980);
+					                var ctx = onePageCanvas.getContext('2d');
+					                // details on this usage of this function: 
+					                // https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Using_images#Slicing
+					                ctx.drawImage(srcImg,sX,sY,sWidth,sHeight,dX,dY,dWidth,dHeight);
+
+					                // document.body.appendChild(canvas);
+					                var canvasDataURL = onePageCanvas.toDataURL("image/png", 1.0);
+
+					                var width         = onePageCanvas.width;
+					                var height        = onePageCanvas.clientHeight;
+
+					                //! If we're on anything other than the first page,
+					                // add another page
+					                if (i > 0) {
+					                    pdf.addPage(612, 791); //8.5" x 11" in pts (in*72)
+					                }
+					                //! now we declare that we're working on that page
+					                // pdf.setPage(k + (i+1));
+					                //! now we add content to that page!
+					                pdf.addImage(canvasDataURL, 'PNG', 20, 40, (width*.62), (height*.62));
+					            }
+
+					            if (k === addPagesFns.length - 1) {
+			                	pdf.save(broadcastedName);
+			                } else {
+			                	pdf.addPage(612, 791);
+			                	addPagesFns[k + 1]();
+			                }
+					        }
+					      });
+					}
+
 
 					function convert(theElement , id) {
 						var quotes = $('div[pdf-save-content='+id+']')[0];
-				        html2canvas(quotes, {
-				            onrendered: function(canvas) {
-				            var pdf = new jsPDF('p', 'pt', 'letter');
-				            for (var i = 0; i <= quotes.clientHeight/980; i++) {
-				                var srcImg  = canvas;
-				                var sX      = 0;
-				                var sY      = 980*i; // start 980 pixels down for every new page
-				                var sWidth  = 900;
-				                var sHeight = 980;
-				                var dX      = 0;
-				                var dY      = 0;
-				                var dWidth  = 900;
-				                var dHeight = 980;
+						var pdf = new jsPDF('p', 'pt', 'letter');
+						var numberOfPages = $('div[pdf-save-content='+id+'] [pdf-page]').length || 1;
 
-				                window.onePageCanvas = document.createElement("canvas");
-				                onePageCanvas.setAttribute('width', 900);
-				                onePageCanvas.setAttribute('height', 980);
-				                var ctx = onePageCanvas.getContext('2d');
-				                // details on this usage of this function: 
-				                // https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Using_images#Slicing
-				                ctx.drawImage(srcImg,sX,sY,sWidth,sHeight,dX,dY,dWidth,dHeight);
+						for (var pageNumber = 0; pageNumber < numberOfPages; pageNumber++) {
+							addPagesFns.push(convertPage.bind(this, id, pageNumber, pdf));
+						}
 
-				                // document.body.appendChild(canvas);
-				                var canvasDataURL = onePageCanvas.toDataURL("image/png", 1.0);
-
-				                var width         = onePageCanvas.width;
-				                var height        = onePageCanvas.clientHeight;
-
-				                //! If we're on anything other than the first page,
-				                // add another page
-				                if (i > 0) {
-				                    pdf.addPage(612, 791); //8.5" x 11" in pts (in*72)
-				                }
-				                //! now we declare that we're working on that page
-				                pdf.setPage(i+1);
-				                //! now we add content to that page!
-				                pdf.addImage(canvasDataURL, 'PNG', 20, 40, (width*.62), (height*.62));
-
-				            }
-				            //! after the for loop is finished running, we save the pdf.
-				            pdf.save(broadcastedName);
-				        }
-				      });
+						addPagesFns[0]();
 						/*var element = $('[pdf-save-content='+id+']') ,
 						cache_width = element.width(),
 						 a4  =[ 595.28,  841.89];  // for a4 size paper width and height
