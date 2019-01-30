@@ -6,7 +6,8 @@
 
 	<div pdf-save-content="idOne" >
 		<!-- some google graph -->
-		Hello Someone
+		<p>{{unit.name}}</p>
+		<img ng-src="unit.imagePath">
 	</div>
 
 	<button pdf-save-button="idOneGraph" pdf-name="hello.pdf" class="btn">Hello World</button>
@@ -27,7 +28,9 @@
 <script>
 var app = angular.module('app' , ['htmlToPdfSave']) ;
 app.controller('DemoController' , function($scope) {
-
+	$scope.unit = {};
+	$scope.unit.name = "3 BHK";
+	$scope.unit.imagePath = "https://ong.social/media/com_easysocial/photos/16/62159/rustic-log-house3_square.jpg";
 });
 </script>
 </body>
